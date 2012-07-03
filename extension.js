@@ -48,7 +48,7 @@ const CHECK_TIMEOUT = 300;
 const GCONF_ACC_KEY="/apps/gmail_notify/accounts";
 const GCONF_DIR="/apps/gmail_notify";
 const _DEBUG=false;
-const _version = "0.3.6";
+const _version = "0.3.7";
 
 
 
