@@ -18,10 +18,10 @@
  * Author: Adam Jabłoński <jablona123@gmail.com>
  *
  */
-const Extension = imports.ui.extensionSystem.extensions["gmail_notify@jablona123.pl"];
-const TlsConn=Extension.tlsconnection;
-const Imap = Extension.imap;
-const OAuth=Extension.oauth;
+const Extension = imports.misc.extensionUtils.getCurrentExtension();
+const TlsConn=Extension.imports.tlsconnection;
+const Imap = Extension.imports.imap;
+const OAuth=Extension.imports.oauth;
 //const TlsConn=imports.tlsconnection;
 //const Imap = imports.imap;
 //const OAuth=imports.oauth;

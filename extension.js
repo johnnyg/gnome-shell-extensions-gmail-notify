@@ -29,9 +29,9 @@ catch (err) {
 }
 const Main = imports.ui.main;
 const Tweener = imports.ui.tweener;
-const Extension = imports.ui.extensionSystem.extensions["gmail_notify@jablona123.pl"];
-const Gmail = Extension.gmail;
-const Imap = Extension.imap;
+const Extension = imports.misc.extensionUtils.getCurrentExtension();
+const Gmail = Extension.imports.gmail;
+const Imap = Extension.imports.imap;
 const Lang = imports.lang;
 const Mainloop = imports.mainloop;
 const Signals = imports.signals;
@@ -399,12 +399,12 @@ GmailButton.prototype = {
         this._icon_gray=Clutter.Texture.new_from_file(extensionPath+"/icons/gmaillogo-notifier-gray.svg");
 		this._icon_red=Clutter.Texture.new_from_file(extensionPath+"/icons/gmaillogo-notifier-red.svg");
 		this._icon = this._icon_gray;
-		this._box.insert_actor(this._icon_gray,1);
-		this._box.insert_actor(this._icon_red,1);
+		this._box.insert_child_at_index(this._icon_gray,1);
+		this._box.insert_child_at_index(this._icon_red,1);
 		this.text = new St.Label({text: "0(0)" });
 		this.etext = new St.Label({text: ""});
-		this._box.insert_actor(this.text,2);
-		this._box.insert_actor(this.etext,3);
+		this._box.insert_child_at_index(this.text,2);
+		this._box.insert_child_at_index(this.etext,3);
 		this._label.set_child(this._box);
 
         this.actor.add_actor(this._label);
@@ -1043,11 +1043,11 @@ function show() {
 	try{
 
 		switch (config._position) {
-			case 0: Main.panel._rightBox.insert_actor(button.actor, 0);
+			case 0: Main.panel._rightBox.insert_child_at_index(button.actor, 0);
 					break;
-			case 1: Main.panel._centerBox.insert_actor(button.actor,Main.panel._centerBox.get_children_list().length);
+			case 1: Main.panel._centerBox.insert_child_at_index(button.actor,Main.panel._centerBox.get_children().length);
 					break;
-			case 2: Main.panel._leftBox.insert_actor(button.actor,0);
+			case 2: Main.panel._leftBox.insert_child_at_index(button.actor,0);
 					break;
 
 		}

@@ -18,8 +18,8 @@
  * // Author: Adam Jabłoński <jablona123@gmail.com>
  *
  */
-const Extension = imports.ui.extensionSystem.extensions["gmail_notify@jablona123.pl"];
-const Sha =Extension.sha;
+const Extension = imports.misc.extensionUtils.getCurrentExtension();
+const Sha =Extension.imports.sha;
 //const Sha =imports.sha;
 const Signals=imports.signals;
 const GLib=imports.gi.GLib;

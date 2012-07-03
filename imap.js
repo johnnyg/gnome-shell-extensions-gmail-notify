@@ -18,7 +18,7 @@
  * Author: Adam Jabłoński <jablona123@gmail.com>
  *
  */
-const Extension = imports.ui.extensionSystem.extensions["gmail_notify@jablona123.pl"];
+const Extension = imports.misc.extensionUtils.getCurrentExtension();
 try {
 	const Gio = imports.gi.Gio;
 }
@@ -27,8 +27,8 @@ catch (err) {
 }
 const Signals = imports.signals;
 const Lang = imports.lang;
-const Unicode = Extension.unicode;
-const BigInteger = Extension.biginteger;
+const Unicode = Extension.imports.unicode;
+const BigInteger = Extension.imports.biginteger;
 const _DEBUG=false;
 
 function ImapMessage () {
