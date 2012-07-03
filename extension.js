@@ -1062,7 +1062,7 @@ function show() {
 function enable() {
 	try {
 		let userExtensionLocalePath = extensionPath + '/locale';
-		global.log(' Enbling Gmail notify version '+_version);
+		global.log(' Enabling Gmail notify version '+_version);
 		if (config == null ) config = new GmailConf();
 		show();
 		_initData();
