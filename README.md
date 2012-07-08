@@ -22,3 +22,8 @@ and hitting `return`. Then acitvate *Gmail Notify* under *Extensions*.
 
 Adam Jabłoński <jablona123@gmail.com>
 
+### See Also
+
+-   [gmail notify icons plain](https://github.com/bigben87/gmail_notify_icons_plain)
+    a set of more reduced icons.
+
