@@ -6,7 +6,7 @@ login to gmail and check your incomig mails.
 ### Downloading
 
     cd ~/.local/share/gnome-shell/extensions
-    git clone git://github.com/johnnyg/gnome-shell-extensions-gmail-notify.git
+    git clone git://github.com/johnnyg/gnome-shell-extensions-gmail-notify.git gmail_notify@jablona123.pl
 
 ### Loading
 
