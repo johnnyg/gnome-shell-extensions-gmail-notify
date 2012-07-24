@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: gmail_notify\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-01 22:33+0100\n"
+"PO-Revision-Date: 2012-07-16 22:52+0800\n"
+"Last-Translator: mengzhuo <mengzhuo1203@gmail.com>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-SearchPath-0: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl\n"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:123
+msgid "New gmail message"
+msgstr "新Gmail信息"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:163
+#, python-format
+msgid "New mail from %s"
+msgstr "%s寄来的新邮件"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:438
+msgid "No new messages"
+msgstr "没有新邮件"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:506
+msgid "Settings"
+msgstr "设置"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:509
+msgid "Use default email client instead of browser"
+msgstr "使用自带gmail客户端"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:520
+msgid "Notify about incoming mail"
+msgstr "新邮件消息通知"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:531
+msgid "Show email summary"
+msgstr "显示邮件数统计"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:543
+msgid "Check for new versions on startup"
+msgstr "启动时检查新版本"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:556
+msgid "Safe mode"
+msgstr "安全模式"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:569
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:578
+msgid "Check every {0} sec: "
+msgstr "每{0}秒更新"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:595
+msgid "Extension position"
+msgstr "插件显示位置"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:602
+msgid "Right"
+msgstr "右"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:604
+msgid "Center"
+msgstr "中间"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:606
+msgid "Left"
+msgstr "左"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:685
+#, python-format
+msgid "There is newer version of this extension: %s - click to download"
+msgstr "本插件有新版本：%s，点击下载"
+
+#: /home/adam/.local/share/gnome-shell/extensions/gmail_notify@jablona123.pl/extension.js:1002
+msgid "Extension requires Goa,Soup,Gio typelibs - click for instructions how to install"
+msgstr "插件需要Goa,Soup,Gio的typelib - 点击了解如何安装"
+
