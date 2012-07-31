@@ -71,7 +71,7 @@ catch (err) {
 }
 
 
-let box,text, button,event,browserCmd, extensionPath, currentPos, config, onetime, goaAccounts, sM , sU, numGoogle, nVersion, bText,safemode;
+let box,text, button,event,browserCmd, extensionPath, currentPos, config, onetime, goaAccounts, sM , sU, numGoogle, nVersion, bText,safemode, instantCheckLoopID;
 
 
 
@@ -357,6 +357,9 @@ function _showHello(object,event) {
 			 Utils.trySpawnCommandLine(config._mail);
 			}
 		}
+		
+		if (object instanceof GmailMenuItem)
+		    instantCheckLoopID = GLib.timeout_add_seconds(0,20, oneTime); //this should automatically remove 
 
 	}
 	catch (err) {
@@ -1083,5 +1086,7 @@ function disable() {
 	config = null;
 	Mainloop.source_remove(onetime);
     Mainloop.source_remove(event);
+    if (instantCheckLoopID instanceof Number)
+        Mainloop.source_remove(instantCheckLoopID);
     goaAccounts=null;
 }
