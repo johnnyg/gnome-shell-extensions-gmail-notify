@@ -49,7 +49,8 @@ const GCONF_ACC_KEY="/apps/gmail_notify/accounts";
 const GCONF_DIR="/apps/gmail_notify";
 const _DEBUG=false;
 const _version = "0.3.7";
-
+const GMAIL_URI = "http://www.gmail.com";
+const DEFAULT_MAIL_APP = 'thunderbird';
 
 
 try {
@@ -339,17 +340,14 @@ function _showHello(object,event) {
 
 	try {
 		if (config._reader==0) {
-			if (config._browser =="") {
-				global.log("gmail notify: no default browser")
-			}
-			else {
-					if (object.link!='' && typeof(object.link)!='undefined'){
-						Utils.trySpawnCommandLine(config._browser+" "+object.link);
-					}
-					else {
-						Utils.trySpawnCommandLine(config._browser+" http://www.gmail.com");
-					}
-				}
+            try{
+                let uri = ((object.link instanceof String) && object.link.length > GMAIL_URI.length)?object.link:GMAIL_URI;
+                //Length of the link should not less than GMAIL_URI's
+			    Utils.trySpawnCommandLine("gnome-open %s".format(uri));
+            }catch(err){
+                global.log(err.message);
+            }
+			
 		} else {
 			if (config._mail =="") {
 				global.log("gmail notify: no default mail reader")
@@ -367,12 +365,7 @@ function _showHello(object,event) {
 };
 
 function _browseGn() {
-	if (config._browser =="") {
-		global.log("gmail notify: no default browser")
-	}
-	else {
-		Utils.trySpawnCommandLine(config._browser+" http://gn.makrodata.org");
-	}
+	Utils.trySpawnCommandLine("gnome-open %s".format(Extension.metadata["uri"]));
 };
 //
 //GmailButton
@@ -809,18 +802,11 @@ GmailConf.prototype = {
 
 			//some value init
 			try {
-			   this._browser=Gio.app_info_get_default_for_uri_scheme("http").get_executable();
-			}
-			catch (err) {
-				this._browser="firefox";
-				global.log("Config init browser : "+err.message);
-			}
-			try {
 			  this._mail=Gio.app_info_get_default_for_uri_scheme("mailto").get_executable();
 			}
 			catch (err) {
+			    this._mail=DEFAULT_MAIL_APP;
 				global.log("Config init mail : "+err.message);
-				 this._mail="";
 			}
 			let ival,sval;
 			ival=this._client.get(GCONF_DIR+'/timeout');
