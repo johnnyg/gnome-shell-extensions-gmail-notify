@@ -171,8 +171,9 @@ GmailNotification.prototype = {
         let layout = new St.BoxLayout({ vertical: true });
 
 
-        let label = new St.Label({ text: (Date(content.date)).toLocaleString()});
-        label.set_style("font-size:10px;")
+        let label = new St.Label({ text: (Date(content.date)).toLocaleString(),
+                                    style_class: "gmail-small-text"
+                                });
         layout.add(label);
         let label1 = new St.Label({ text: content.subject });
         layout.add(label1);
@@ -713,11 +714,10 @@ GmailMenuItem.prototype = {
 
         // Display avatar
 
-        let iconBox = new St.Bin({ style_class: 'avatar-box' });
-        iconBox._size = 48;
+        let iconBox = new St.Bin({ style_class: 'gmail-mailbox-avatar-box' });
+        ///iconBox._size = 48; //It seems there is no difference whether we set this.
 
         iconBox.child = Clutter.Texture.new_from_file(extensionPath+"/icons/gmail-icon32.png");
-        iconBox.set_style("padding-right:10px;padding-left:10px;")
         this.label.add(iconBox);
 
         // subscription request message
@@ -733,9 +733,8 @@ GmailMenuItem.prototype = {
 			global.log('Date converison error in gmail menu item proto');
 		}
 		dts+=" "+content.from;
-        let label = new St.Label({ text: dts});
+        let label = new St.Label({ text: dts,style_class:"gmail-dts"});
         if (_DEBUG) global.log('dts added');
-        label.set_style("font-size:10px;")
         layout.add(label);
         let subtext='';
         this.link=content.link;
@@ -772,13 +771,11 @@ MailboxMenuItem.prototype = {
 		try {
         PopupMenu.PopupBaseMenuItem.prototype._init.call(this, params);
         this.label= new St.BoxLayout({ vertical: false });
-        let iconBox = new St.Bin({ style_class: 'avatar-box' });
+        let iconBox = new St.Bin({ style_class: 'gmail-main-avatar-box' });
         iconBox._size = 48;
         iconBox.child = Clutter.Texture.new_from_file(extensionPath+"/icons/mailbox.png");
-		iconBox.set_style("padding-right:10px")
         this.label.add(iconBox);
-        let mailbox = new St.Label({ text: text});
-        mailbox.set_style("font-size:14px;")
+        let mailbox = new St.Label({ text: text,style_class:"gmail-mailbox"});
         this.label.add(mailbox);
         this.addActor(this.label);
 		}
