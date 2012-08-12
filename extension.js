@@ -1045,7 +1045,7 @@ function show() {
 		switch (config._position) {
 			case 0: Main.panel._rightBox.insert_child_at_index(button.actor, 0);
 					break;
-			case 1: Main.panel._centerBox.insert_child_at_index(button.actor,Main.panel._centerBox.get_children().length);
+			case 1: Main.panel._centerBox.insert_child_at_index(button.actor, 1);
 					break;
 			case 2: Main.panel._leftBox.insert_child_at_index(button.actor,0);
 					break;
