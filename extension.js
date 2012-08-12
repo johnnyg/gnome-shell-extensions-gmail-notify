@@ -1047,7 +1047,7 @@ function show() {
 					break;
 			case 1: Main.panel._centerBox.insert_child_at_index(button.actor, 1);
 					break;
-			case 2: Main.panel._leftBox.insert_child_at_index(button.actor,0);
+			case 2: Main.panel._leftBox.insert_child_at_index(button.actor, 1);
 					break;
 
 		}
