@@ -1,8 +1,12 @@
-.helloworld-label {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: rgba(10,10,10,0.7);
-    border-radius: 5px;
-    padding: .5em;
+.gmail-small-text,.gmail-dts{
+    font-size:10px;
+}
+.gmail-mailbox{
+    font-size:14px;
+}
+.gmail-mailbox-avatar-box{
+    padding:0 10px;
+}
+.gmail-main-avatar-box{
+    padding-right:10px
 }

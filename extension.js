@@ -49,7 +49,8 @@ const GCONF_ACC_KEY="/apps/gmail_notify/accounts";
 const GCONF_DIR="/apps/gmail_notify";
 const _DEBUG=false;
 const _version = "0.3.7";
-
+const GMAIL_URI = "http://www.gmail.com";
+const DEFAULT_MAIL_APP = 'thunderbird';
 
 
 try {
@@ -70,7 +71,7 @@ catch (err) {
 }
 
 
-let box,text, button,event,browserCmd, extensionPath, currentPos, config, onetime, goaAccounts, sM , sU, numGoogle, nVersion, bText,safemode;
+let box,text, button,event,browserCmd, extensionPath, currentPos, config, onetime, goaAccounts, sM , sU, numGoogle, nVersion, bText,safemode, instantCheckLoopID;
 
 
 
@@ -170,8 +171,9 @@ GmailNotification.prototype = {
         let layout = new St.BoxLayout({ vertical: true });
 
 
-        let label = new St.Label({ text: (Date(content.date)).toLocaleString()});
-        label.set_style("font-size:10px;")
+        let label = new St.Label({ text: (Date(content.date)).toLocaleString(),
+                                    style_class: "gmail-small-text"
+                                });
         layout.add(label);
         let label1 = new St.Label({ text: content.subject });
         layout.add(label1);
@@ -339,17 +341,14 @@ function _showHello(object,event) {
 
 	try {
 		if (config._reader==0) {
-			if (config._browser =="") {
-				global.log("gmail notify: no default browser")
-			}
-			else {
-					if (object.link!='' && typeof(object.link)!='undefined'){
-						Utils.trySpawnCommandLine(config._browser+" "+object.link);
-					}
-					else {
-						Utils.trySpawnCommandLine(config._browser+" http://www.gmail.com");
-					}
-				}
+            try{
+                let uri = ((object.link instanceof String) && object.link.length > GMAIL_URI.length)?object.link:GMAIL_URI;
+                //Length of the link should not less than GMAIL_URI's
+			    Utils.trySpawnCommandLine("gnome-open %s".format(uri));
+            }catch(err){
+                global.log(err.message);
+            }
+			
 		} else {
 			if (config._mail =="") {
 				global.log("gmail notify: no default mail reader")
@@ -358,6 +357,9 @@ function _showHello(object,event) {
 			 Utils.trySpawnCommandLine(config._mail);
 			}
 		}
+		
+		if (object instanceof GmailMenuItem)
+		    instantCheckLoopID = GLib.timeout_add_seconds(0,20, oneTime); //this should automatically remove 
 
 	}
 	catch (err) {
@@ -367,12 +369,7 @@ function _showHello(object,event) {
 };
 
 function _browseGn() {
-	if (config._browser =="") {
-		global.log("gmail notify: no default browser")
-	}
-	else {
-		Utils.trySpawnCommandLine(config._browser+" http://gn.makrodata.org");
-	}
+	Utils.trySpawnCommandLine("gnome-open %s".format(Extension.metadata["uri"]));
 };
 //
 //GmailButton
@@ -720,11 +717,10 @@ GmailMenuItem.prototype = {
 
         // Display avatar
 
-        let iconBox = new St.Bin({ style_class: 'avatar-box' });
-        iconBox._size = 48;
+        let iconBox = new St.Bin({ style_class: 'gmail-mailbox-avatar-box' });
+        ///iconBox._size = 48; //It seems there is no difference whether we set this.
 
         iconBox.child = Clutter.Texture.new_from_file(extensionPath+"/icons/gmail-icon32.png");
-        iconBox.set_style("padding-right:10px;padding-left:10px;")
         this.label.add(iconBox);
 
         // subscription request message
@@ -740,9 +736,8 @@ GmailMenuItem.prototype = {
 			global.log('Date converison error in gmail menu item proto');
 		}
 		dts+=" "+content.from;
-        let label = new St.Label({ text: dts});
+        let label = new St.Label({ text: dts,style_class:"gmail-dts"});
         if (_DEBUG) global.log('dts added');
-        label.set_style("font-size:10px;")
         layout.add(label);
         let subtext='';
         this.link=content.link;
@@ -779,13 +774,11 @@ MailboxMenuItem.prototype = {
 		try {
         PopupMenu.PopupBaseMenuItem.prototype._init.call(this, params);
         this.label= new St.BoxLayout({ vertical: false });
-        let iconBox = new St.Bin({ style_class: 'avatar-box' });
+        let iconBox = new St.Bin({ style_class: 'gmail-main-avatar-box' });
         iconBox._size = 48;
         iconBox.child = Clutter.Texture.new_from_file(extensionPath+"/icons/mailbox.png");
-		iconBox.set_style("padding-right:10px")
         this.label.add(iconBox);
-        let mailbox = new St.Label({ text: text});
-        mailbox.set_style("font-size:14px;")
+        let mailbox = new St.Label({ text: text,style_class:"gmail-mailbox"});
         this.label.add(mailbox);
         this.addActor(this.label);
 		}
@@ -809,18 +802,11 @@ GmailConf.prototype = {
 
 			//some value init
 			try {
-			   this._browser=Gio.app_info_get_default_for_uri_scheme("http").get_executable();
-			}
-			catch (err) {
-				this._browser="firefox";
-				global.log("Config init browser : "+err.message);
-			}
-			try {
 			  this._mail=Gio.app_info_get_default_for_uri_scheme("mailto").get_executable();
 			}
 			catch (err) {
+			    this._mail=DEFAULT_MAIL_APP;
 				global.log("Config init mail : "+err.message);
-				 this._mail="";
 			}
 			let ival,sval;
 			ival=this._client.get(GCONF_DIR+'/timeout');
@@ -1100,5 +1086,7 @@ function disable() {
 	config = null;
 	Mainloop.source_remove(onetime);
     Mainloop.source_remove(event);
+    if (instantCheckLoopID instanceof Number)
+        Mainloop.source_remove(instantCheckLoopID);
     goaAccounts=null;
 }
